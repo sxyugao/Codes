@@ -15,7 +15,6 @@ int read() {
 bool lim, f[N][2];
 char opt[5];
 int main() {
-  freopen("testdata.in", "r", stdin);
   int n = read(), m = read();
   f[0][0] = 0, f[0][1] = 1;
   for (int i = 1; i <= n; i++) {
@@ -46,8 +45,10 @@ int main() {
     if (f[i][0]) {
       ans += (1 << i);
     } else {
-      if (f[i][1] && mx) ans += (1 << i);
-      x = 1;
+      if (f[i][1] && mx) {
+        ans += (1 << i);
+        x = 1;
+      }
     }
     lim &= x == mx;
   }
