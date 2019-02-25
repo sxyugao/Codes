@@ -16,7 +16,7 @@ bool lim, f[N][2];
 char opt[5];
 int main() {
   int n = read(), m = read();
-  f[0][0] = 0, f[0][1] = 1;
+  for (int i = 0; i <= 30; i++) f[i][1] = 1;
   for (int i = 1; i <= n; i++) {
     scanf("%s", opt);
     int x = read();
@@ -40,12 +40,13 @@ int main() {
     }
   }
   int ans = 0;
+  lim = 1;
   for (int i = 30; ~i; i--) {
     bool mx = m & (1 << i), x = 0;
     if (f[i][0]) {
       ans += (1 << i);
     } else {
-      if (f[i][1] && mx) {
+      if (f[i][1] && ((lim && mx) || !lim)) {
         ans += (1 << i);
         x = 1;
       }
