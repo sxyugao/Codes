@@ -55,13 +55,9 @@ void dfs2(int x, int topf) {
 }
 struct Data {
   ull x0, x1;
-  Data() {
-    x0 = 0, x1 = 0;
-    for (int i = 0; i < k; i++) x1 |= 1ull << i;
-  }
+  Data() { x0 = 0, x1 = ~0; }
   Data(int opt, ull x) {
-    x0 = 0, x1 = 0;
-    for (int i = 0; i < k; i++) x1 |= 1ull << i;
+    x0 = 0, x1 = ~0;
     if (opt == 1) {
       x0 &= x;
       x1 &= x;
