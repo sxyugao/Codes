@@ -13,9 +13,10 @@ int read() {
   return x * f;
 }
 #undef gc
+typedef long long LL;
 const int INF = 0x7fffffff;
-const int N = 10005;
-const int M = 100005;
+const int N = 105;
+const int M = 5005;
 int nedge = 1, head[N], cur[N];
 struct Edge {
   int to, nxt, w;
@@ -65,8 +66,8 @@ int dfs(int x, int t, int flow) {
   }
   return ret;
 }
-int dinic(int s, int t) {
-  int ans = 0;
+LL dinic(int s, int t) {
+  LL ans = 0;
   while (bfs(s, t)) {
     memcpy(cur, head, sizeof(head));
     ans += dfs(s, t, INF);
@@ -79,5 +80,5 @@ int main() {
     int x = read(), y = read(), z = read();
     add(x, y, z), add(y, x, 0);
   }
-  printf("%d", dinic(s, t));
+  printf("%lld", dinic(s, t));
 }
