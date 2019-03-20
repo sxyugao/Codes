@@ -16,7 +16,7 @@ const int S = 406, T = 407;
 int nedge = 1, head[T + 5], cur[T + 5];
 struct Edge {
   int to, nxt, w;
-} edge[N * M * 2];
+} edge[N * T * 2];
 void add(int x, int y, int z) {
   edge[++nedge].to = y;
   edge[nedge].w = z;
@@ -89,4 +89,11 @@ int main() {
   }
   if (dinic() < sum) return puts("0"), 0;
   puts("1");
+  for (int i = 1; i <= n; i++) {
+    for (int j = head[i]; j; j = edge[j].nxt) {
+      if (edge[j].w) continue;
+      printf("%d ", edge[j].to - n);
+    }
+    puts("");
+  }
 }
