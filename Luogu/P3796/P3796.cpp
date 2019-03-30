@@ -5,6 +5,7 @@
 using namespace std;
 const int MAXN = 200;
 char s[MAXN][100];
+char str[1000005];
 int num, ans[MAXN];
 struct _AC {
   int tot, trie[MAXN * 100][26];
@@ -56,15 +57,15 @@ struct _AC {
 } AC;
 int main() {
   int n;
-  while (~scanf("%d", &n) && n) {
+  while (scanf("%d", &n), n) {
     AC.init();
     for (int i = 1; i <= n; i++) {
       scanf("%s", s[i]);
       AC.insert(s[i], i);
     }
     AC.build();
-    scanf("%s", s[0]);
-    AC.find(s[0]);
+    scanf("%s", str);
+    AC.find(str);
     printf("%d\n", num);
     for (int i = 1; i <= n; i++)
       if (ans[i] == num) puts(s[i]);
