@@ -1,5 +1,5 @@
-.vscode/
-*.exe
-*.o
-*.in
-*.out
+*
+!*.c
+!*.cpp
+!*.pas
+!*/
