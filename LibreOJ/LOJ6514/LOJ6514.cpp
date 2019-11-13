@@ -38,29 +38,39 @@ inline void add(int x, int y) {
   edge[nedge].nxt = head[x];
   head[x] = nedge;
 }
-int d[N], f[20][N];
-int tot, l[N], r[N];
-void dfs(int x, int fa) {
-  l[x] = ++tot;
-  d[x] = d[fa] + 1;
-  f[0][x] = fa;
-  for (int i = 1; (1 << i) <= d[x]; i++)
-    f[i][x] = f[i - 1][f[i - 1][x]];
+int d[N], fa[N], siz[N], son[N];
+void dfs1(int x, int f) {
+  fa[x] = f;
+  d[x] = d[f] + 1;
+  siz[x] = 1;
+  int mx = 0;
   for (int i = head[x]; i; i = edge[i].nxt) {
     int y = edge[i].to;
-    if (y ^ fa) dfs(y, x);
+    if (y == f) continue;
+    dfs1(y, x);
+    siz[x] += siz[y];
+    if (siz[y] > mx) mx = siz[y], son[x] = y;
+  }
+}
+int tot, top[N], l[N], r[N], id[N];
+void dfs2(int x, int topf) {
+  l[x] = ++tot;
+  id[tot] = x;
+  top[x] = topf;
+  if (son[x]) dfs2(son[x], topf);
+  for (int i = head[x]; i; i = edge[i].nxt) {
+    int y = edge[i].to;
+    if (y == fa[x] || y == son[x]) continue;
+    dfs2(y, y);
   }
   r[x] = tot;
 }
-inline bool isIn(int rt, int x) {
-  if (!rt) return 1;
-  return l[rt] <= l[x] && r[x] <= r[rt];
-}
 inline int lca(int x, int y) {
-  if (isIn(x, y)) return x;
-  for (int i = 19; ~i; i--)
-    if (!isIn(f[i][x], y)) x = f[i][x];
-  return f[0][x];
+  while (top[x] ^ top[y]) {
+    if (d[top[x]] < d[top[y]]) swap(x, y);
+    x = fa[top[x]];
+  }
+  return d[x] < d[y] ? x : y;
 }
 int n, m, q, p[N];
 struct Data {
@@ -70,9 +80,9 @@ struct Data {
   }
 } a[N];
 inline int jump(int x, int step) {
-  for (int i = 0; step; i++, step >>= 1)
-    if (step & 1) x = f[i][x];
-  return x;
+  int dep = d[x] - step;
+  while (dep < d[top[x]]) x = fa[top[x]];
+  return id[l[x] - d[x] + dep];
 }
 inline int solve() {
   int num = 0;
@@ -105,7 +115,7 @@ int main() {
     int x = read(), y = read();
     add(x, y), add(y, x);
   }
-  dfs(1, 0);
+  dfs1(1, 0), dfs2(1, 1);
   while (q--) {
     m = read();
     for (int i = 1; i <= m; i++) p[i] = read();
