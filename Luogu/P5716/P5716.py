@@ -1,0 +1,5 @@
+s = input().split()
+x = int(s[0])
+y = int(s[1])
+if y == 2: print(28 + int((x % 400 == 0) or (x % 4 == 0 and x % 100 != 0)))
+else: print(30 + int(y == 1 or y == 3 or y == 5 or y == 7 or y == 8 or y == 10 or y == 12))
