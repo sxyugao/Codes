@@ -4,4 +4,6 @@
 !*.pas
 !*.php
 !*.py
+!*.java
 !*/
+!*.code-workspace
