@@ -6,5 +6,6 @@
 !*.py
 !*.java
 !*.go
+!*.rs
 !*/
 !*.code-workspace
