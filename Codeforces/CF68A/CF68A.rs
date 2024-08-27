@@ -34,8 +34,7 @@ fn run<W: Write>(sc: &mut scanner::Scanner, out: &mut std::io::BufWriter<W>) {
     let p4: i32 = sc.next();
     let a: i32 = sc.next();
     let b: i32 = sc.next();
-    use std::cmp::max;
-    use std::cmp::min;
+    use std::cmp::{max, min};
     writeln!(
         out,
         "{}",
